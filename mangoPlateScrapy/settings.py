@@ -92,5 +92,6 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-MONGO_URI = 'http://localhost:27017'
+MONGO_URL = 'localhost'
+MONGO_PORT = '27017'
 MONGO_DATABASE = 'item'

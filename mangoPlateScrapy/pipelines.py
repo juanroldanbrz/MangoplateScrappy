@@ -9,11 +9,24 @@ import pymongo
 
 class ItemPipeline(object):
 
-    collection_name = 'item'
+    collection_name = 'items'
+
+    def __init__(self, mongo_url, mongo_port, mongo_db):
+        self.mongo_url = mongo_url
+        self.mongo_port = mongo_port
+        self.mongo_db = mongo_db
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            mongo_url=crawler.settings.get('MONGO_URL'),
+            mongo_port=int(crawler.settings.get('MONGO_PORT')),
+            mongo_db=crawler.settings.get('MONGO_DATABASE')
+        )
 
     def open_spider(self, spider):
-        self.client = pymongo.MongoClient('localhost', 27017)
-        self.db = self.client['item']
+        self.client = pymongo.MongoClient(self.mongo_url, self.mongo_port)
+        self.db = self.client[self.mongo_db]
 
     def close_spider(self, spider):
         self.client.close()
